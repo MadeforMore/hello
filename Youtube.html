@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Youtube.Com Clone</title>
+    <style>
+      .thumbnail{
+        width: 100%;
+        border-radius: 0px;
+        object-fit: cover;
+        object-position: center;
+        margin-right: 5px; 
+        margin-bottom: 0px; 
+        position: relative;
+      }
+      .video-grid{
+        display: grid;
+        grid-template-columns: 50px 1fr;
+
+      }
+
+      @media(max-width:600px)
+      {
+        .video-grid{
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .channal-pic{
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 2px;
+      }
+      .profil-photo{
+        width: 38px;
+        border-radius: 70px ;
+      }
+      .video-info{
+        display: inline-block;
+      }
+      .video-tital{
+        margin-top: 0px;
+        margin-left: 0px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+        margin-bottom: 0px;
+
+      }
+      .video-author{
+        font-size: 20px;
+        margin-top: 10px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+        color: rgb(96,96,96);
+      }
+      .video-states{
+        margin-top: 7px;
+        margin-left:10px;
+        font-size: 16px;
+        color: rgb(96,96,96);
+      }
+      
+      .grid1{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr ;
+        column-gap: 10px;
+        row-gap: 20px;
+      }
+      .header{
+        height: 60px;
+        display:flex;
+        flex-direction: row;
+        justify-content:space-between ;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100; 
+
+        background-color: white;
+        border-bottom-width:1px;
+        border-bottom-style: solid;
+        border-bottom-color: rgb(233, 221, 221)
+      }
+
+      .left-section{
+        width: 180px;
+        display: flex;
+        align-items: center;
+      }
+      
+      .middel-section{
+        flex: 1;
+        margin-left: 70px;
+        margin-right: 10px;
+        max-width: 500px; 
+        display: flex;
+        align-items: center;
+        
+      }
+      .right-section{
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 50px;
+      }
+
+      .youtubelogo{ 
+        height: 30px;
+        margin-left: 24px;
+        margin-right: 20px;
+      }
+      .iocune1{
+        height: 35px;
+        margin-left: 24px;
+        margin-right: 20px;
+      }
+      .searchbutton{
+        height: 40px;
+        width: 55px;
+        background-color:rgb(251, 249, 249);
+        border-radius: 1px;
+        border-style: solid;
+        border-color:rgb(207, 188, 188);
+        box-shadow: inset 1px 2px 3px rgba(0,0,0,0.10);
+        margin-left: -1px;
+        margin-right: 15px;
+        display:flex;
+        justify-content: center;
+
+
+
+        position: relative;
+
+      }
+
+      .searchbutton .tooltip{
+        position: absolute;
+        background-color: gray;
+        color: white;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 6px;
+        padding-right: 6px;
+        border-radius: 2px;
+        font-size: 12px;
+        bottom: -25px;
+        opacity: 0;
+        transition: opacity 0.15s;
+        pointer-events: none;
+      }
+
+      .searchbutton:hover .tooltip{
+        opacity: 1;
+      }
+      
+      
+      .search-iocn{
+        height: 30px;
+        margin-top: 5px;
+      }
+
+      .voice-search-button{
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+        border: none;
+      }
+      .voice-search-button-logo{
+        height: 24px;
+        margin-top: 5px;
+        background-color: rgb(245, 245, 245);
+      }
+      .Search-bar{
+        flex: 1;
+        height: 35px;
+        padding-left: 10px;
+        font-size: 18px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(207, 188, 188);
+        box-shadow: inset 1px 2px 3px rgba(0,0,0,0.10);
+      }
+      .Search-bar::placeholder{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+      }
+      .upload-icon{
+        width: 30px;
+      }
+
+      .youtube-apps-icon{
+        width: 30px;
+      }
+
+      .notifications-icon{
+        width: 30px;
+        
+      }
+      .notificationsicon{
+        position: relative; 
+         
+      }
+      .notifications-count{
+        position: absolute;
+        top: 15px;
+        right: 145px;
+        background-color: rgb(255, 0, 0);
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        border-radius: 10px;
+        max-width: 990px;
+      }
+
+      .profile-icon{
+        width: 42px;
+        border-radius: 50px;
+      } 
+
+      body{
+        margin: 0 ;
+        padding-top: 80px;
+        padding-left: 100px;
+        padding-right: 25px;
+      }
+
+      .sidebar{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: 55px;
+        background-color: rgb(255, 255, 255);
+        width: 80px; 
+        z-index:200px;
+        padding-top: 5px;
+      }
+
+      .Video-time{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-radius: 2px;
+        background-color: black;
+        color: white;
+        position: absolute;
+        top: 220px;
+        left: 350px;
+      }
+
+      .Video-time1{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-radius: 2px;
+        background-color: black;
+        color: white;
+        position: absolute;
+        top: 220px;
+        left: 695px;
+      }
+
+      .sidebar-link
+      {
+        height: 76px; 
+        display :flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+      }
+      .sidebar-link:hover{
+        background-color: rgb(241, 241, 241);
+      }
+
+      .sidebar-link img{
+        height: 25px ; 
+        margin-bottom: 4px;
+      }
+
+      .sidebar-link div{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10px;
+
+      }
+
+
+
+    </style>  
+    <body>
+      <div class="header"> 
+          <div class="left-section">
+            <img  class="iocune1" src="iocun1.svg">
+            <img class="youtubelogo" src="youtube-logo.svg">
+          </div>
+
+          <div class="middel-section">
+            <input class="Search-bar" type="text" placeholder="Search">
+            <button class="searchbutton">
+              <img class="search-iocn" src="search logo.svg">
+              <div class="tooltip">
+                Search
+              </div>
+            </button>
+            <button class="voice-search-button">
+              <img class="voice-search-button-logo" src="voice-search-icon.svg">
+            </button>
+          </div> 
+
+          <div class="right-section">
+            <img class="upload-icon" src="upload icon.svg">
+
+            <img class="youtube-apps-icon" src="youtube-apps icon.svg">
+            
+            <div class="'notificationsicon">
+              <img class="notifications-icon"src="notifications icon.svg">
+              <div class="notifications-count">3</div>
+            </div>
+
+            <img class="profile-icon" src="my-channelprofile.jpeg">         
+          </div>
+      </div>
+
+      <div class='sidebar'> 
+        <div class="sidebar-link">
+          <img src="home icon.svg">
+          <div>Home</div>
+        </div>
+        <div class="sidebar-link">
+          <img src="explore-icon.svg">
+          <div>Explore</div>
+        </div>
+        <div class="sidebar-link">
+          <img src="subscriptions icon.svg">
+          <div>Subscriptions</div>
+        </div>
+        <div class="sidebar-link">
+          <img src="originals icon.svg">
+          <div>Originals</div>
+        </div>
+        <div class="sidebar-link">
+          <img src="youtube-music icon.svg">
+          <div>Youtube-music</div>
+        </div>
+        <div class="sidebar-link">
+          <img src="library icon.svg">
+          <div>Library</div>
+        </div>
+      </div>
+      
+      <div class ="grid1">
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+               14:20
+            </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+  
+  
+  
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time1">
+              4:20
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My YIN CLUB
+                </p>
+                <p class="video-author">
+                   3rd CLUB
+                </p>
+                <p class="video-states">
+                  1 year of Experience
+                </p>
+              </div>
+            </div>  
+          </div>
+        </div>
+  
+  
+  
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              10:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+  
+  
+  
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              15:50
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div>
+            </div>  
+          </div>
+        </div>
+  
+  
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+
+
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+
+
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+
+
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+
+
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+
+
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              5:00
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div> 
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="Video-pre">
+          <div>
+            <img class="thumbnail" src="Youtubepic1.jpeg">
+            <div class="Video-time">
+              14:20
+           </div>
+          </div>
+          <div>
+            <div class="video-grid">
+              <div class="channal-pic">
+                <img class="profil-photo" src="channel-1.jpeg">
+              </div>
+              <div class="video-info">
+                <p class="video-tital">
+                  This Is My Class
+                </p>
+                <p class="video-author">
+                  Aryan thite
+                </p>
+                <p class="video-states">
+                  3.4M Views . 1 year ago
+                </p>
+              </div>
+            </div>  
+          </div>
+        </div>  
+      </div>
+    </body>
+  </head>
+</html>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
